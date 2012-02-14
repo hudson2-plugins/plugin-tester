@@ -27,7 +27,8 @@ public class LandingPage {
     (new WebDriverWait(driver, 600)).until(new ExpectedCondition<Boolean>() {
 
       public Boolean apply(WebDriver d) {
-        System.out.println("Title: " + d.getTitle());
+        d.navigate().refresh();
+        System.out.println("Title: " + d.navigate().getTitle());
         return d.getTitle().toLowerCase().startsWith("dashboard [hudson]");
       }
     });
