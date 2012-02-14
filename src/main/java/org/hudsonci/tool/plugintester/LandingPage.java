@@ -28,7 +28,7 @@ public class LandingPage {
 
       public Boolean apply(WebDriver d) {
         d.navigate().refresh();
-        System.out.println("Title: " + d.navigate().getTitle());
+        System.out.println("Title: " + d.getTitle());
         return d.getTitle().toLowerCase().startsWith("dashboard [hudson]");
       }
     });
