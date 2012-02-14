@@ -33,11 +33,11 @@
                 <artifactItem>
                   <groupId>org.jvnet.hudson.main</groupId>
                   <artifactId>hudson-war</artifactId>
-                  <version>2.1.2</version>
+                  <version>${hudson-core}</version>
                   <type>war</type>
                   <overWrite>true</overWrite>
                   <outputDirectory>target/download</outputDirectory>
-                  <destFileName>hudson-2.1.2.war</destFileName>
+                  <destFileName>hudson-${hudson-core}.war</destFileName>
                 </artifactItem>
                 <artifactItem>
                   <groupId>org.hudsonci.plugins</groupId>
@@ -58,15 +58,14 @@
         <version>2.12</version>
         <configuration>
           <systemPropertyVariables>
-            <browser>firefox</browser>
-            <core-version>2.1.2</core-version>
-            <hudson-port>9999</hudson-port>
+            <browser>htmlunit</browser>
+            <core-version>${hudson-core}</core-version>
+            <hudson-port>${HUDSON-PORT}</hudson-port>
           </systemPropertyVariables>
         </configuration>
       </plugin>      
     </plugins>
   </build>
-
   <dependencies>
     
     <dependency>

@@ -23,7 +23,7 @@ public class NewJobPage {
 
       public Boolean apply(WebDriver d) {
         System.out.println("Title: " + d.getTitle());
-        return d.getTitle().toLowerCase().startsWith("dashboards [hudson]");
+        return d.getTitle().toLowerCase().startsWith("new job [hudson]");
       }
     });    
   }
