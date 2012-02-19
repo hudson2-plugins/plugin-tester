@@ -21,7 +21,7 @@ public class LandingPage {
   private final WebDriver driver;
   private final String url;
 
-  @FindBy(how= How.PARTIAL_LINK_TEXT, partialLinkText="New Job")
+  @FindBy(how= How.LINK_TEXT, linkText="New Job")
   WebElement newJobLink;
   
   public LandingPage(WebDriver driver, String url) {
