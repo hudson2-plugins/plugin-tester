@@ -21,23 +21,17 @@ public class LandingPage {
   private final WebDriver driver;
   private final String url;
 
-  @FindBy(partialLinkText="New Job")
+  @FindBy(how= How.PARTIAL_LINK_TEXT, partialLinkText="New Job")
   WebElement newJobLink;
   
   public LandingPage(WebDriver driver, String url) {
     this.driver = driver;
     this.url = url;
-
-    driver.get(this.url);
-    (new WebDriverWait(driver, 600)).until(new ExpectedCondition<Boolean>() {
-
-      public Boolean apply(WebDriver d) {
-        return d.getTitle().toLowerCase().startsWith("dashboard [hudson]");
-      }
-    });
+    System.out.println("Created new landing page");
   }
   
-  public NewJobPage clickNewJob() {    
+  public NewJobPage clickNewJob() {
+    System.out.println("Clicking "+ newJobLink);
     newJobLink.click();
     return new NewJobPage(driver);
   }

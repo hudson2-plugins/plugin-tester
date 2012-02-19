@@ -15,6 +15,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
@@ -59,12 +61,12 @@ public abstract class BaseTest {
     webapp.setWar("target/download/hudson-" + coreVersion + ".war");
     server.setHandler(webapp);
     server.start();
-    
+
     context.setAttribute("server", server);
     context.setAttribute("port", portString);
     context.setAttribute("browser", browser);
     context.setAttribute("coreVersion", coreVersion);
-    
+
   }
 
   @AfterClass
@@ -72,35 +74,46 @@ public abstract class BaseTest {
     Server server = (Server) context.getAttribute("server");
     server.stop();
   }
-  
+
   @BeforeMethod
-  public void startSelenium(ITestContext context)  {
+  public void startSelenium(ITestContext context) {
     String browser = (String) context.getAttribute("browser");
-    
+
     WebDriver driver = null;
     if ("htmlunit".equals(browser)) {
       driver = new HtmlUnitDriver();
     }
-    
+
     if ("firefox".equals(browser)) {
       driver = new FirefoxDriver();
     }
-    
+
     if ("chrome".equals(browser)) {
       driver = new ChromeDriver();
     }
-    
+
     if (driver == null) {
-      throw new RuntimeException("Unknown browser:" +browser);
+      throw new RuntimeException("Unknown browser:" + browser);
     }
     context.setAttribute("driver", driver);
-    String url = "http://localhost:"+context.getAttribute("port")+"/hudson";
+    String url = "http://localhost:" + context.getAttribute("port") + "/hudson";
+    waitForHudsonStart(driver,url);
     LandingPage page = new LandingPage(driver, url);
-    context.setAttribute("landing", page);   
+    context.setAttribute("landing", page);
   }
-  
+
+  private void waitForHudsonStart(WebDriver driver, String url) {
+    driver.get(url);
+    (new WebDriverWait(driver, 600)).until(new ExpectedCondition<Boolean>() {
+
+      public Boolean apply(WebDriver d) {
+        return d.getTitle().toLowerCase().startsWith("dashboard [hudson]");
+      }
+    });
+  }
+
   @AfterMethod
-  public void stopSelenium(ITestContext context)  {
+  public void stopSelenium(ITestContext context) {
     WebDriver driver = (WebDriver) context.getAttribute("driver");
     driver.quit();
   }
