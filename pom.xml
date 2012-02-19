@@ -33,12 +33,31 @@
                 <artifactItem>
                   <groupId>org.jvnet.hudson.main</groupId>
                   <artifactId>hudson-war</artifactId>
-                  <version>${hudson-core}</version>
+                  <version>2.1.2</version>
                   <type>war</type>
                   <overWrite>true</overWrite>
                   <outputDirectory>target/download</outputDirectory>
-                  <destFileName>hudson-${hudson-core}.war</destFileName>
+                  <destFileName>hudson-2.1.2.war</destFileName>
                 </artifactItem>
+                <artifactItem>
+                  <groupId>org.jvnet.hudson.main</groupId>
+                  <artifactId>hudson-war</artifactId>
+                  <version>2.2.0</version>
+                  <type>war</type>
+                  <overWrite>true</overWrite>
+                  <outputDirectory>target/download</outputDirectory>
+                  <destFileName>hudson-2.2.0.war</destFileName>
+                </artifactItem>
+                <artifactItem>
+                  <groupId>org.eclipse.hudson.main</groupId>
+                  <artifactId>hudson-war</artifactId>
+                  <version>3.0.0-M0</version>
+                  <type>war</type>
+                  <overWrite>true</overWrite>
+                  <outputDirectory>target/download</outputDirectory>
+                  <destFileName>hudson-3.0.0-M0.war</destFileName>
+                </artifactItem>                
+                
                 <artifactItem>
                   <groupId>org.hudsonci.plugins</groupId>
                   <artifactId>displayname</artifactId>
@@ -47,6 +66,7 @@
                   <overWrite>true</overWrite>
                   <outputDirectory>target/download</outputDirectory>
                 </artifactItem>
+                
               </artifactItems>
             </configuration>
           </execution>
