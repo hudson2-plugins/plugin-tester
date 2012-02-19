@@ -78,7 +78,7 @@
         <version>2.12</version>
         <configuration>
           <systemPropertyVariables>
-            <browser>htmlunit</browser>
+            <browser>firefox</browser>
             <core-version>${hudson-core}</core-version>
             <hudson-port>${HUDSON-PORT}</hudson-port>
           </systemPropertyVariables>
