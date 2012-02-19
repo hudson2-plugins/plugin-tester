@@ -19,14 +19,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LandingPage {
 
   private final WebDriver driver;
-  private final String url;
 
   @FindBy(how= How.LINK_TEXT, linkText="New Job")
   WebElement newJobLink;
   
-  public LandingPage(WebDriver driver, String url) {
+  public LandingPage(WebDriver driver) {
     this.driver = driver;
-    this.url = url;
     System.out.println("Created new landing page");
   }
   

@@ -15,6 +15,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestContext;
@@ -98,7 +99,7 @@ public abstract class BaseTest {
     context.setAttribute("driver", driver);
     String url = "http://localhost:" + context.getAttribute("port") + "/hudson";
     waitForHudsonStart(driver,url);
-    LandingPage page = new LandingPage(driver, url);
+    LandingPage page = PageFactory.initElements(driver, LandingPage.class);
     context.setAttribute("landing", page);
   }
 
