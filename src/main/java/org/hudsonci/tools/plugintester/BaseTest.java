@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.hudsonci.tools.plugintester;
 
 import java.io.File;
@@ -17,9 +13,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.sonatype.aether.artifact.Artifact;
+import org.sonatype.aether.version.Version;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Parameters;
 
 /**
@@ -32,24 +30,34 @@ public abstract class BaseTest {
   private static final String DOWNLOAD_BASEDIR = "target/download";
   private static final String PLUGIN_FOLDERNAME = "plugins";
 
-  @Parameters({"browser", "core-version", "hudson-port","local-repo","remote-repo"})
-  @BeforeMethod
-  public void start(ITestContext context, String browser, String coreVersion, String portString, String localRepo,String remoteRepo) throws Exception{
-        
-    System.out.println("browser: " + browser);
-    System.out.println("core-version: " + coreVersion);
-    System.out.println("port: " + portString);
-    System.out.println("local-repo: " + localRepo);
-    System.out.println("remote-repo: " + remoteRepo);
-    
+  @Parameters(value={"browser", "core-version", "hudson-port", "local-repo","remote-repo"})
+  @BeforeTest
+  public void beforeTest(ITestContext context, String browser, String coreVersion, String portString, String localRepo,String remoteRepo) {
+    System.out.println("Browser: " + browser);
+    System.out.println("Core version: " + coreVersion);
+    System.out.println("Port: " + portString);
+    System.out.println("Local repository: " + localRepo);
+    System.out.println("Remote reposioty: " + remoteRepo);    
+  
     context.setAttribute("browser", browser);
     context.setAttribute("port", portString);    
-    context.setAttribute("core-version", coreVersion);      
-    
+    context.setAttribute("core-version", coreVersion); 
     
     ArtifactResolver resolver = new ArtifactResolver(localRepo,remoteRepo);
+    context.setAttribute("resolver", resolver);    
+  }
+  
+  
+  @BeforeMethod
+  public void start(ITestContext context,Object[] testParameters) throws Exception{
+    
+    String browser = (String) context.getAttribute("browser");
+    String portString = (String) context.getAttribute("port");    
+    String coreVersion =  (String) context.getAttribute("core-version");     
+    
+    ArtifactResolver resolver = (ArtifactResolver) context.getAttribute("resolver");
     // Get list of needed plugins
-    List<Artifact> plugins = getPluginsNeeded();
+    List<Artifact> plugins = getPluginsNeeded(testParameters);
     List<Artifact> resolvedPlugins = resolver.resolve(plugins);
     
     // add required core to list of artifacts    
@@ -66,9 +74,7 @@ public abstract class BaseTest {
     }
     hudsonHome.mkdirs();
     pluginFolder.mkdirs();
-
-   
-    
+       
     // install plugins
     for (Artifact artifact : resolvedPlugins) {
       FileUtils.copyFileToDirectory(artifact.getFile(), pluginFolder);
@@ -119,13 +125,25 @@ public abstract class BaseTest {
     driver.quit();
   }
 
-  protected List<Artifact> getPluginsNeeded() {
+  protected List<Artifact> getPluginsNeeded(Object[] testParameters) {
     List<Artifact> plugins = new ArrayList<Artifact>();    
-    plugins.add(getPluginNeeded());
+    plugins.add(getPluginNeeded(testParameters));
     return plugins;
   }
   
-  protected Artifact getPluginNeeded() {
+  protected Artifact getPluginNeeded(Object[] testParameters) {
     return null;
+  }
+  
+  protected Object[][] getAvailablePluginVersions(ITestContext context, String groupID,String artifactId,String minVersion) throws Exception {
+    ArtifactResolver resolver = (ArtifactResolver) context.getAttribute("resolver");
+    List<Version> availableVersions = resolver.getAvailableVersions(groupID, artifactId, minVersion);
+    Object[][] invocation = new Object[availableVersions.size()][];
+    
+    for (int i=0;i < availableVersions.size(); i++) {
+      Object[] params = { availableVersions.get(i).toString() };
+      invocation[i] = params;
+    }    
+    return invocation;    
   }
 }

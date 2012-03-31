@@ -1,8 +1,4 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-package org.hudsonci.tools.plugintester.pages;
+package org.hudsonci.tools.plugintester;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,7 +27,9 @@ public class Page {
       
   }
   
-  
+  public WebDriver getDriver(){
+    return driver;
+  }
   
   protected final void waitForFooter() {
     WebDriverWait _wait = new WebDriverWait(driver, 60);

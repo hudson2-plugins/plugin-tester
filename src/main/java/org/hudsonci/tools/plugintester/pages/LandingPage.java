@@ -1,12 +1,11 @@
 package org.hudsonci.tools.plugintester.pages;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.hudsonci.tools.plugintester.Page;
+import org.hudsonci.tools.plugintester.pages.job.CreateJob;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 /**
@@ -16,8 +15,10 @@ import org.testng.Assert;
 public class LandingPage extends Page {
 
   private static final int MAX_STARTUP_WAIT = 60;
+  
   @FindBy(how = How.LINK_TEXT, linkText = "New Job")
-  WebElement newJobLink;
+  WebElement createJobLink;
+  
   @FindBy(how = How.LINK_TEXT, linkText = "Manage Hudson")
   WebElement managehudsonLink;
 
@@ -30,17 +31,15 @@ public class LandingPage extends Page {
       try {
         Thread.sleep(2000);
         driver.navigate().refresh();
-        System.out.println("attemp "+i);
       } catch (InterruptedException ex) {
         // ignore
       }
-
     }
     Assert.assertEquals(driver.getTitle().toLowerCase(), "dashboard [hudson]".toLowerCase());
   }
 
-  public NewJobPage newJob() {
-    newJobLink.click();
-    return new NewJobPage(driver);
+  public CreateJob createJob() {
+    createJobLink.click();
+    return new CreateJob(driver);
   }
 }
