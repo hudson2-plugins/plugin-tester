@@ -45,12 +45,6 @@ public class DisplayNameTest extends BaseTest{
       
       configureJob = job.configure();
       Assert.assertEquals(configureJob.getDisplayName(),"Hello word");
-
-    try {
-      Thread.sleep(60*1000);
-    } catch (InterruptedException ex) {
-      Logger.getLogger(DisplayNameTest.class.getName()).log(Level.SEVERE, null, ex);
-    }
   }
 
   @Override
