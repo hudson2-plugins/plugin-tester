@@ -89,6 +89,8 @@ public abstract class BaseTest {
     server.setHandler(webapp);
     server.start();
 
+    
+
     // Start selenium
     WebDriver driver = null;
     if ("htmlunit".equals(browser)) {
@@ -119,10 +121,12 @@ public abstract class BaseTest {
 
   @AfterMethod
   public void stopSelenium(ITestContext context) throws Exception {
-    Server server = (Server) context.getAttribute("server");
-    server.stop();    
+    Server server = (Server) context.getAttribute("server");    
+    server.stop();        
     WebDriver driver = (WebDriver) context.getAttribute("driver");
     driver.quit();
+    context.removeAttribute("server");
+    context.removeAttribute("driver");
   }
 
   protected List<Artifact> getPluginsNeeded(Object[] testParameters) {
