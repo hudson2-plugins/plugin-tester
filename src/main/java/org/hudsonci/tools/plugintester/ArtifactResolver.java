@@ -26,8 +26,8 @@ public class ArtifactResolver {
 
   public static final Map<String, Artifact> CORE_VERSIONS = new HashMap<String, Artifact>();
   private static final Artifact HUDSON_212 = new DefaultArtifact("org.jvnet.hudson.main", "hudson-war", "war", "2.1.2");
-  private static final Artifact HUDSON_220 = new DefaultArtifact("org.jvnet.hudson.main:hudson-war:2.2.0");
-  private static final Artifact HUDSON_300M1 = new DefaultArtifact("org.eclipse.hudson.main:hudson-war:3.0.0-M1");
+  private static final Artifact HUDSON_220 = new DefaultArtifact("org.jvnet.hudson.main", "hudson-war", "war", "2.2.0");
+  private static final Artifact HUDSON_300M1 = new DefaultArtifact("org.eclipse.hudson.main", "hudson-war", "war", "3.0.0-M1");
 
   static {
     CORE_VERSIONS.put("2.1.2", HUDSON_212);

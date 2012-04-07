@@ -26,10 +26,10 @@
         <configuration>
           <systemPropertyVariables>
             <browser>firefox</browser>
-            <core-version>2.1.2</core-version>
+            <core-version>3.0.0-M1</core-version>
             <hudson-port>9000</hudson-port>
             <local-repo>/home/henrik/.m2/hudson</local-repo>
-            <remote-repo>http://localhost:8081/nexus/content/groups/public/</remote-repo>            
+            <remote-repo>http://server.home/nexus/content/groups/hudson/</remote-repo>
           </systemPropertyVariables>
           <argLine>-XX:MaxPermSize=1024m -Xmx2040m</argLine>
         </configuration>

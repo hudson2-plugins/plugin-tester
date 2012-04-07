@@ -20,11 +20,13 @@ public class Page {
   
   public Page(WebDriver driver,String expectedTitle) {
     this.driver = driver;
+    System.out.println("Loading page: "+ this.getClass() + " with title: " +  driver.getTitle());
     waitForFooter();
+    
     if (expectedTitle != null) {
       Assert.assertEquals(driver.getTitle().toLowerCase(), expectedTitle.toLowerCase());
     }
-      
+    System.out.println("Loaded page: "+ this.getClass() + " with title: " +  driver.getTitle());  
   }
   
   public WebDriver getDriver(){

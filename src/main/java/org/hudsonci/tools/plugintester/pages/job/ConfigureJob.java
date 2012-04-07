@@ -1,5 +1,7 @@
 package org.hudsonci.tools.plugintester.pages.job;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hudsonci.tools.plugintester.Page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,8 +18,12 @@ public class ConfigureJob extends Page {
   @FindBy(name="_.displayname")
   WebElement displayNameField;
   
-  @FindBy(xpath="//form[@name='config']")
+  @FindBy(xpath="//form[@name='config']")  
   WebElement form;
+  
+  @FindBy(xpath="//span[@id='yui-gen21']/span/button")
+  WebElement saveButton;
+  
   
   private String jobName;
   
@@ -37,7 +43,8 @@ public class ConfigureJob extends Page {
   }
   
   public DisplayJob save() {
-    form.submit();
+    saveButton.click();
+    System.out.println("Submitted form");
     return new DisplayJob(driver,jobName);
   }
   

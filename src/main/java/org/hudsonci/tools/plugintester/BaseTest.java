@@ -1,5 +1,7 @@
 package org.hudsonci.tools.plugintester;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
+import org.openqa.selenium.logging.LogType;
 import org.openqa.selenium.support.PageFactory;
 import org.sonatype.aether.artifact.Artifact;
 import org.sonatype.aether.version.Version;
@@ -94,7 +97,8 @@ public abstract class BaseTest {
     // Start selenium
     WebDriver driver = null;
     if ("htmlunit".equals(browser)) {
-      driver = new HtmlUnitDriver();
+      HtmlUnitDriver hdriver = new HtmlUnitDriver();
+      driver = hdriver; 
     }
 
     if ("firefox".equals(browser)) {
@@ -121,10 +125,10 @@ public abstract class BaseTest {
 
   @AfterMethod
   public void stopSelenium(ITestContext context) throws Exception {
-    Server server = (Server) context.getAttribute("server");    
-    server.stop();        
+    Server server = (Server) context.getAttribute("server");
     WebDriver driver = (WebDriver) context.getAttribute("driver");
     driver.quit();
+    server.stop();        
     context.removeAttribute("server");
     context.removeAttribute("driver");
   }
