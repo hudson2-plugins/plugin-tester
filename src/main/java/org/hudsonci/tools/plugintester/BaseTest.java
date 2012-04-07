@@ -85,6 +85,8 @@ public abstract class BaseTest {
 
     // Start jetty
     System.setProperty("HUDSON_HOME", hudsonHome.getAbsolutePath());
+    System.setProperty("hudson.model.UpdateCenter.never", "true");
+    System.setProperty("hudson.model.WorkspaceCleanupThread.disabled", "true");
     Server server = new Server(Integer.parseInt(portString));
     WebAppContext webapp = new WebAppContext();
     webapp.setContextPath("/hudson");
