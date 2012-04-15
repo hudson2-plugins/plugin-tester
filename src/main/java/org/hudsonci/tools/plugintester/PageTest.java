@@ -106,7 +106,7 @@ public abstract class PageTest {
 
   @Override
   public String toString() {
-    return this.getClass().getSimpleName()+ " {" + "requiredPlugins=" + requiredPlugins +  '}';
+    return " {" + "requiredPlugins=" + requiredPlugins +  '}';
   }
   
   
