@@ -19,7 +19,7 @@ public class ThrottleConcurrentBuildsTest extends PageTest {
   @DataProvider
   public static Object[][] dp() {
     ArtifactResolver resolver = ArtifactResolver.getInstance();
-    List<Artifact> pluginVersions = resolver.getPluginVersions("org.jenkins-ci.plugins", "throttle-concurrents", "[0,)");    
+    List<Artifact> pluginVersions = resolver.getPluginVersions("org.jenkins-ci.plugins", "throttle-concurrents", "[1.7,)");    
     return Util.convertList(pluginVersions);
   }
 
