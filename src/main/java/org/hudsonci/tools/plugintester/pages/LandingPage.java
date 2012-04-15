@@ -5,7 +5,7 @@ import org.hudsonci.tools.plugintester.pages.job.CreateJob;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 /**
@@ -16,14 +16,17 @@ public class LandingPage extends Page {
 
   private static final int MAX_STARTUP_WAIT = 60;
   
-  @FindBy(how = How.LINK_TEXT, linkText = "New Job")
+  @FindBy(linkText="New Job")
   WebElement createJobLink;
   
-  @FindBy(how = How.LINK_TEXT, linkText = "Manage Hudson")
+  @FindBy(linkText = "Manage Hudson")
   WebElement managehudsonLink;
 
-  public LandingPage(WebDriver driver) {
+    
+  public LandingPage(WebDriver driver,String baseUrl) {
     super(driver);
+    this.driver.get(baseUrl);
+    
     for (int i = 0; i < MAX_STARTUP_WAIT; i++) {
       if ("dashboard [hudson]".equalsIgnoreCase(driver.getTitle())) {
         break;
@@ -36,7 +39,9 @@ public class LandingPage extends Page {
       }
     }
     Assert.assertEquals(driver.getTitle().toLowerCase(), "dashboard [hudson]".toLowerCase());
+    PageFactory.initElements(driver,this);
   }
+
 
   public CreateJob createJob() {
     createJobLink.click();

@@ -1,13 +1,10 @@
 package org.hudsonci.tools.plugintester.pages.job;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.hudsonci.tools.plugintester.Page;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
 
 /**
  *
@@ -15,15 +12,33 @@ import org.testng.Assert;
  */
 public class ConfigureJob extends Page {
 
-  @FindBy(name="_.displayname")
-  WebElement displayNameField;
-  
+
   @FindBy(xpath="//form[@name='config']")  
-  WebElement form;
+  public WebElement configureForm;
   
   @FindBy(xpath="//span[@id='yui-gen21']/span/button")
-  WebElement saveButton;
+  public WebElement saveButton;
+
+  // The following elements are for the Displayname plugin
   
+  @FindBy(name="_.displayname")
+  public WebElement displayNameField;
+      
+  // The following elements are for the Throttle concurrent builds plugin
+  @FindBy(name="throttleEnabled")
+  public WebElement throtteEnableCheckbox;
+  
+  @FindBy(xpath="//input[@name='throttleOption'][@value='project']")
+  public WebElement throttleByProjectRadio;
+
+  @FindBy(xpath="//input[@name='throttleOption'][@value='category']")
+  public WebElement throttleByCategoryRadio;
+  
+  @FindBy(name="_.maxConcurrentTotal")
+  public WebElement throttleMaxTotalField;  
+
+  @FindBy(name="_.maxConcurrentPerNode")
+  public WebElement throttleMaxPerNodeField;    
   
   private String jobName;
   
@@ -46,8 +61,9 @@ public class ConfigureJob extends Page {
     saveButton.click();
     System.out.println("Submitted form");
     return new DisplayJob(driver,jobName);
-  }
-  
+    
+    
+  }   
   
   
 }

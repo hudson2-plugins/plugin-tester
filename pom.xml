@@ -24,13 +24,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.12</version>
         <configuration>
-          <systemPropertyVariables>
-            <browser>firefox</browser>
-            <core-version>3.0.0-M1</core-version>
-            <hudson-port>9000</hudson-port>
-            <local-repo>/home/henrik/.m2/hudson</local-repo>
-            <remote-repo>http://server.home/nexus/content/groups/hudson/</remote-repo>
-          </systemPropertyVariables>
           <argLine>-XX:MaxPermSize=1024m -Xmx2040m</argLine>
         </configuration>
       </plugin>      
