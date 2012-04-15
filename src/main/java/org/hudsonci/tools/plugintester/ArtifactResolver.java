@@ -55,7 +55,7 @@ public class ArtifactResolver {
     String remotes = System.getProperty("remotes");
 
     for (String remote : remotes.split(",")) {      
-      RemoteRepository repo = new RemoteRepository(remote, "default", System.getProperty("repo.")+remote);
+      RemoteRepository repo = new RemoteRepository(remote, "default", System.getProperty("repo."+remote));
       System.out.println("Remote repository: "+ remote + " -> "+ repo.getUrl());
       remoteRepositories.add(repo);
     }
