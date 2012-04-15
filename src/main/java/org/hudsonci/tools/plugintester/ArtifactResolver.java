@@ -50,7 +50,7 @@ public class ArtifactResolver {
   private List<RemoteRepository> remoteRepositories = new ArrayList<RemoteRepository>();
 
   private ArtifactResolver() {
-    this.localRepository = new LocalRepository(System.getProperty("maven.repo.local"));
+    this.localRepository = new LocalRepository(System.getProperty("repo.local"));
     System.out.println("Local repository: "+ localRepository.getBasedir());
     String remotes = System.getProperty("remotes");
 
