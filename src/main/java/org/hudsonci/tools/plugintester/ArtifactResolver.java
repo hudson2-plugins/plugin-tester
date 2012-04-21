@@ -14,6 +14,7 @@ import org.sonatype.aether.RepositorySystem;
 import org.sonatype.aether.RepositorySystemSession;
 import org.sonatype.aether.artifact.Artifact;
 import org.sonatype.aether.repository.LocalRepository;
+import org.sonatype.aether.repository.Proxy;
 import org.sonatype.aether.repository.RemoteRepository;
 import org.sonatype.aether.resolution.*;
 import org.sonatype.aether.util.artifact.DefaultArtifact;
@@ -51,11 +52,21 @@ public class ArtifactResolver {
 
   private ArtifactResolver() {
     this.localRepository = new LocalRepository(System.getProperty("repo.local"));
+    String proxyType = System.getProperty("proxy.type");
+    String proxyHost = System.getProperty("proxy.host");
+    String proxyPort = System.getProperty("proxy.port");
+    Proxy proxy = null;
+    if (proxyType != null) {
+      proxy = new Proxy(proxyType, proxyHost, Integer.parseInt(proxyPort), null);
+    }
     System.out.println("Local repository: "+ localRepository.getBasedir());
     String remotes = System.getProperty("remotes");
 
     for (String remote : remotes.split(",")) {      
       RemoteRepository repo = new RemoteRepository(remote, "default", System.getProperty("repo."+remote));
+      if (proxy != null) {
+        repo.setProxy(proxy);
+      }
       System.out.println("Remote repository: "+ remote + " -> "+ repo.getUrl());
       remoteRepositories.add(repo);
     }
@@ -124,7 +135,7 @@ public class ArtifactResolver {
   }
 
   private RepositorySystemSession newSession(RepositorySystem system) {
-    MavenRepositorySystemSession session = new MavenRepositorySystemSession();
+    MavenRepositorySystemSession session = new MavenRepositorySystemSession();    
     session.setTransferListener(new TransferListener());
     session.setLocalRepositoryManager(system.newLocalRepositoryManager(localRepository));
 
