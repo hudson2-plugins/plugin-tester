@@ -11,11 +11,11 @@ import org.sonatype.aether.transfer.TransferResource;
 class TransferListener implements org.sonatype.aether.transfer.TransferListener {
 
   public void transferInitiated(TransferEvent event) throws TransferCancelledException {
-    System.out.println("Download Initiated: " + buildUrl(event) + ",size= " + event.getResource().getContentLength());
+    //System.out.println("Download Initiated: " + buildUrl(event) + ",size= " + event.getResource().getContentLength());
   }
 
   public void transferStarted(TransferEvent event) throws TransferCancelledException {
-    System.out.println("Download started: " + buildUrl(event) + ",size= " + event.getResource().getContentLength());
+    //System.out.println("Download started: " + buildUrl(event) + ",size= " + event.getResource().getContentLength());
   }
 
   public void transferProgressed(TransferEvent event) throws TransferCancelledException {
@@ -31,7 +31,7 @@ class TransferListener implements org.sonatype.aether.transfer.TransferListener 
   }
 
   public void transferFailed(TransferEvent event) {
-    System.out.println("Download failed: " + buildUrl(event) +", exception= "+event.getException());
+    //System.out.println("Download failed: " + buildUrl(event) +", exception= "+event.getException());
   }
   
   private String buildUrl(TransferEvent event) {

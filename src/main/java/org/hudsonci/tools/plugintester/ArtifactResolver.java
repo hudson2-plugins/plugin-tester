@@ -124,10 +124,16 @@ public class ArtifactResolver {
       List<Version> versions = repoSystem.resolveVersionRange(session, rangeRequest).getVersions();
 
       // convert to artifacts
+      StringBuilder sb =  new StringBuilder("Resolved plugin versions ");
+      sb.append("GroupID=").append(groupId);
+      sb.append(", ArtifactID=").append(artifactId);
+      sb.append(", versions=");
       for (Version version : versions) {
         Artifact resolvedArtifact = new DefaultArtifact(groupId, artifactId, "hpi", version.toString());
         result.add(resolvedArtifact);
+        sb.append(resolvedArtifact.getVersion()).append("; ");
       }
+      System.out.println(sb.toString());
       return result;
     } catch (VersionRangeResolutionException ex) {
       throw new TestException("Failed to get available versions for: " + groupId + ":" + artifactId, ex);
