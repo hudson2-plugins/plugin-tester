@@ -40,6 +40,16 @@ public class ConfigureJob extends Page {
   @FindBy(name="_.maxConcurrentPerNode")
   public WebElement throttleMaxPerNodeField;    
   
+  // The following elements are for the build timeout plugin
+  @FindBy(name="hudson-plugins-build_timeout-BuildTimeoutWrapper")
+  public WebElement buildTimeoutEnableCheckbox;
+  
+  @FindBy(name="build-timeout.timeoutMinutes")
+  public WebElement buildTimeoutMinutesField;
+
+  @FindBy(name="build-timeout.failBuild")
+  public WebElement buildTimeoutFailCheckbox;
+       
   private String jobName;
   
   ConfigureJob(WebDriver driver, String name) {
